@@ -53,7 +53,3 @@ The repository consists of the following files:
 ## Output
 
 Both implementations will scrape book data, including the title, price, availability, rating, and category, and save the data to a CSV file named `books_data.csv`.
-
-## Conclusion
-
-This project has provided valuable insights into web scraping techniques and the differences between using BeautifulSoup and Scrapy. It has enhanced my understanding of data extraction and manipulation, which are essential skills in data science and web development.
