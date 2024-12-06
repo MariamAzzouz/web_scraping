@@ -5,7 +5,7 @@ class BooksSpider(scrapy.Spider):
     start_urls = ['https://books.toscrape.com/catalogue/page-1.html']
 
     def parse(self, response):
-        # Extract book data
+
         for book in response.css('article.product_pod'):
             title = book.css('h3 a::attr(title)').get()
             price = book.css('p.price_color::text').get()
@@ -14,7 +14,7 @@ class BooksSpider(scrapy.Spider):
             book_link = book.css('h3 a::attr(href)').get()
             book_detail_url = response.urljoin(book_link)
 
-            # Follow the link to the book detail page
+
             yield response.follow(book_detail_url, self.parse_book_details, meta={
                 'title': title,
                 'price': price,
@@ -22,7 +22,7 @@ class BooksSpider(scrapy.Spider):
                 'rating': rating
             })
 
-        # Follow pagination links
+
         next_page = response.css('li.next a::attr(href)').get()
         if next_page:
             yield response.follow(next_page, self.parse)
@@ -30,11 +30,11 @@ class BooksSpider(scrapy.Spider):
     def parse_book_details(self, response):
         genre = response.css('ul.breadcrumb li:nth-child(3) a::text').get().strip()
         
-        # Yield the collected data
+
         yield {
             'Title': response.meta['title'],
             'Price': response.meta['price'],
             'Availability': response.meta['availability'],
             'Rating': response.meta['rating'],
-            'Genre': genre
+            'category': genre
         } 
